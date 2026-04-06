@@ -22,6 +22,7 @@ import { UsersTable } from '@/features/users/components/users-table'
 import { users } from '@/features/users/data/users'
 
 export const Route = createFileRoute('/clerk/_authenticated/user-management')({
+  staticData: { title: 'User Management' },
   component: UserManagement,
 })
 

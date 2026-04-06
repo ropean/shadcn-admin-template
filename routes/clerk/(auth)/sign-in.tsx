@@ -3,6 +3,7 @@ import { SignIn } from '@clerk/clerk-react'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export const Route = createFileRoute('/clerk/(auth)/sign-in')({
+  staticData: { title: 'Sign In' },
   component: () => (
     <SignIn
       initialValues={{

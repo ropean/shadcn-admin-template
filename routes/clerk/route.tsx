@@ -11,6 +11,7 @@ import { Main } from '@/components/layout/main'
 import { ThemeSwitch } from '@/components/theme-switch'
 
 export const Route = createFileRoute('/clerk')({
+  staticData: { title: 'Clerk' },
   component: RouteComponent,
 })
 
