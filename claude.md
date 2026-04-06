@@ -1,0 +1,136 @@
+# shadcn-admin-template
+
+Admin dashboard template built with React, TanStack Router, shadcn/ui, and Tailwind CSS v4.
+
+## Tech Stack
+
+- **Framework**: React 19 + Vite 8
+- **Router**: TanStack Router v1 (file-based routing)
+- **UI**: shadcn/ui + Tailwind CSS v4
+- **State**: Zustand
+- **Data fetching**: TanStack Query v5
+- **Auth (optional)**: Clerk
+- **Forms**: React Hook Form + Zod
+- **Tables**: TanStack Table v8
+- **Linter**: oxlint
+- **Type checker**: TypeScript 6
+
+## Scripts
+
+```bash
+pnpm dev          # start dev server (auto-regenerates routeTree.gen.ts)
+pnpm build        # vite build (also regenerates routeTree.gen.ts)
+pnpm type:check   # tsc -b (TypeScript only, no build)
+pnpm lint         # oxlint
+pnpm format       # prettier --write
+pnpm knip         # dead code detection
+```
+
+## Directory Structure
+
+```
+/
+├── routes/                   # TanStack Router file-based routes
+│   ├── __root.tsx            # Root route (Toaster, devtools)
+│   ├── (auth)/               # Main app auth pages: /sign-in, /sign-up, /otp, /forgot-password, /sign-in-2
+│   ├── (errors)/             # Shared error pages: /401, /403, /404, /500, /503
+│   ├── _authenticated/       # Main app authenticated pages (layout: AuthenticatedLayout)
+│   │   ├── route.tsx         # Layout wrapper (sidebar + providers)
+│   │   ├── index.tsx         # Dashboard: /
+│   │   ├── apps/             # /apps
+│   │   ├── chats/            # /chats
+│   │   ├── errors/           # /errors/:error (catches _authenticated errors)
+│   │   ├── help-center/      # /help-center
+│   │   ├── settings/         # /settings, /settings/account, /settings/appearance, etc.
+│   │   ├── tasks/            # /tasks
+│   │   └── users/            # /users
+│   ├── clerk/                # Clerk integration: /clerk, /clerk/sign-in, /clerk/sign-up, /clerk/user-management
+│   └── features/             # ⚠️ Reference/showcase routes — DO NOT TOUCH
+│       ├── (auth)/           # /features/sign-in, /features/sign-up, etc.
+│       ├── (errors)/         # /features/401, /features/500, etc.
+│       ├── _authenticated/   # /features/ dashboard + /features/tasks, /features/users, etc.
+│       │   └── route.tsx     # Features layout (providers + AppSidebar with features links)
+│       └── clerk/            # /features/clerk showcase page (kept here intentionally)
+│
+├── src/                      # Main app page components (used by routes/_authenticated/ and routes/(auth)/)
+│   ├── auth/                 # sign-in, sign-up, otp, forgot-password — links point to root paths
+│   ├── apps/
+│   ├── chats/
+│   ├── dashboard/
+│   ├── settings/
+│   ├── tasks/
+│   └── users/
+│
+├── features/                 # ⚠️ Reference/showcase page components — DO NOT TOUCH
+│   ├── auth/                 # links point to /features/... paths
+│   ├── apps/
+│   ├── chats/
+│   ├── dashboard/
+│   ├── errors/               # Shared — used by both main app and features routes
+│   ├── settings/
+│   ├── tasks/
+│   └── users/
+│
+├── components/
+│   ├── layout/
+│   │   ├── app-sidebar.tsx             # Accepts optional `data` prop for sidebar items
+│   │   ├── authenticated-layout.tsx    # Main app layout (sidebar + providers)
+│   │   ├── data/
+│   │   │   ├── sidebar-data.ts         # Main app sidebar links (root paths)
+│   │   │   └── features-sidebar-data.ts # Features sidebar links (/features/... paths)
+│   │   └── ...
+│   ├── ui/                   # shadcn/ui components — do not remove exports
+│   └── ...
+│
+├── context/                  # React context providers (layout, search, direction, theme, font)
+├── hooks/                    # Custom hooks (use-table-url-state, etc.)
+├── stores/                   # Zustand stores (auth-store)
+├── lib/                      # Utilities (cn, cookies, handle-server-error)
+├── config/                   # App config
+├── assets/                   # SVG/images
+└── styles/                   # Global CSS (Tailwind base)
+```
+
+## Route Architecture
+
+### Two independent route sets
+
+| Set | URL prefix | Components | Sidebar data | Purpose |
+|-----|-----------|------------|--------------|---------|
+| Main app | `/`, `/sign-in`, `/tasks`, etc. | `src/` | `sidebar-data.ts` | Production app |
+| Reference | `/features/`, `/features/sign-in`, etc. | `features/` | `features-sidebar-data.ts` | Original design reference |
+
+- **Shared**: error pages (`/401`–`/503`) from `features/errors/`
+- **Clerk**: lives at `/clerk/...` (root level, not `/features/clerk`)
+
+### routeTree.gen.ts
+
+Auto-generated by `@tanstack/router-plugin` on every `vite dev` / `vite build`. Do not edit manually. Commit this file — it carries route type information for type-safe navigation.
+
+`vite.config.ts` sets `routeFileIgnorePattern: '/features/'` — routes inside `routes/features/` are NOT auto-generated by the plugin; their entries in `routeTree.gen.ts` were written manually and survive rebuilds.
+
+`tsconfig.app.json` excludes `routes/features` from TypeScript compilation. These files are bundled by Vite but not type-checked by `tsc`.
+
+### Path alias
+
+`@/` maps to the project root (`.`), e.g. `@/src/auth/sign-in` → `./src/auth/sign-in`.
+
+## Key Rules
+
+- **Do not modify `features/` or `routes/features/`** — preserved reference design.
+- `src/` components use root paths (`/sign-in`, `/tasks`…). `features/` components use `/features/` paths. Never mix them.
+- `components/ui/` exports are intentionally broad (shadcn/ui public API) — do not prune unused exports.
+- When adding a new main app page: add component in `src/`, route file in `routes/_authenticated/` (or `routes/(auth)/`), sidebar entry in `components/layout/data/sidebar-data.ts`.
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local`:
+
+```bash
+# TanStack devtools (only active in development, ignored in production)
+VITE_QUERY_DEVTOOLS=false
+VITE_ROUTER_DEVTOOLS=false
+
+# Clerk (only needed for /clerk routes)
+VITE_CLERK_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
+```
