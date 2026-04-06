@@ -1,7 +1,7 @@
 import { type ChangeEvent, useState } from 'react'
 import { useSearch, useNavigate } from '@tanstack/react-router'
-import { type NavigateFn } from '@/hooks/use-table-url-state'
 import { SlidersHorizontal, ArrowUpAZ, ArrowDownAZ } from 'lucide-react'
+import { type NavigateFn } from '@/hooks/use-table-url-state'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -33,7 +33,11 @@ export function Apps() {
     filter = '',
     type = 'all',
     sort: initSort = 'asc',
-  } = useSearch({ strict: false }) as { filter?: string; type?: AppType; sort?: 'asc' | 'desc' }
+  } = useSearch({ strict: false }) as {
+    filter?: string
+    type?: AppType
+    sort?: 'asc' | 'desc'
+  }
   const navigate = useNavigate() as unknown as NavigateFn
 
   const [sort, setSort] = useState(initSort)

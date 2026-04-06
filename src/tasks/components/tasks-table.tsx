@@ -14,6 +14,7 @@ import {
 } from '@tanstack/react-table'
 import { cn } from '@/lib/utils'
 import { useTableUrlState } from '@/hooks/use-table-url-state'
+import { type NavigateFn } from '@/hooks/use-table-url-state'
 import {
   Table,
   TableBody,
@@ -23,12 +24,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
-import { type NavigateFn } from '@/hooks/use-table-url-state'
 import { priorities, statuses } from '../data/data'
 import { type Task } from '../data/schema'
 import { DataTableBulkActions } from './data-table-bulk-actions'
 import { tasksColumns as columns } from './tasks-columns'
-
 
 type DataTableProps = {
   data: Task[]
