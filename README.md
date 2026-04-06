@@ -1,6 +1,6 @@
 # shadcn-admin-template
 
-A modern admin dashboard template built with React, TanStack Router, and shadcn/ui.
+A modern admin dashboard template built on top of [shadcn-admin](https://github.com/satnaing/shadcn-admin) by [@satnaing](https://github.com/satnaing).
 
 ## Stack
 
@@ -65,13 +65,19 @@ VITE_CLERK_PUBLISHABLE_KEY=your_key_here
 
 ## Features
 
-- **Dual route sets** — live app at `/` and original design reference at `/features/`
-- **Clerk integration** — drop-in auth at `/clerk/*`, fully optional
-- **Sidebar layout** — collapsible, with variant support (inset / sidebar / floating)
-- **Dark mode** — theme switching built in
+- **Light/dark mode** — theme switching built in
+- **Fully responsive** — mobile to desktop
 - **RTL support** — direction provider included
+- **Sidebar layout** — collapsible, with variant support (inset / sidebar / floating)
+- **Global search** — command palette
+- **Clerk integration** — drop-in auth at `/clerk/*`, fully optional
+- **Dual route sets** — live app at `/` and original design reference at `/features/`
 - **Type-safe navigation** — all routes and search params fully typed
+
+## Credits
+
+Based on [shadcn-admin](https://github.com/satnaing/shadcn-admin) by [Sat Naing](https://github.com/satnaing), licensed under MIT.
 
 ## License
 
-MIT
+MIT — see [LICENSE](./LICENSE) for details.

@@ -22,6 +22,9 @@ yarn-error.log*
 *.tsbuildinfo
 node_modules/.tmp/
 
+# Claude Code
+.claude/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
