@@ -2,6 +2,8 @@
 
 A modern admin dashboard template built on top of [shadcn-admin](https://github.com/satnaing/shadcn-admin) by [@satnaing](https://github.com/satnaing).
 
+🌐 **Live Preview**: [shadcn-admin-template.ropean.org](https://shadcn-admin-template.ropean.org/)
+
 ## Stack
 
 - **React 19** + **Vite 8**
@@ -24,13 +26,13 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start dev server |
-| `pnpm build` | Production build |
-| `pnpm type:check` | TypeScript check |
-| `pnpm lint` | Lint with oxlint |
-| `pnpm format` | Format with Prettier |
+| Command           | Description          | Status |
+| ----------------- | -------------------- | ------ |
+| `pnpm dev`        | Start dev server     | ✅     |
+| `pnpm build`      | Production build     | ✅     |
+| `pnpm type:check` | TypeScript check     | ✅     |
+| `pnpm lint`       | Lint with oxlint     | ✅     |
+| `pnpm format`     | Format with Prettier | ✅     |
 
 ## Project Structure
 
