@@ -22,6 +22,12 @@ yarn-error.log*
 *.tsbuildinfo
 node_modules/.tmp/
 
+# TanStack Router cache
+.tanstack/
+
+# Wrangler (Cloudflare Workers)
+.wrangler/
+
 # Claude Code
 .claude/
 
